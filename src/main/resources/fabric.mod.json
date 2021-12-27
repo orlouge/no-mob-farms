@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "nomobfarm",
+  "version": "${version}",
+
+  "name": "No Mob Farm",
+  "description": "Nerfs mob farms",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": "https://github.com/orlouge",
+    "sources": "https://github.com/orlouge/no-mob-farm"
+  },
+
+  "license": "MIT",
+  "icon": "assets/nomobfarm/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.orlouge.nomobfarm.NoMobFarmMod"
+    ]
+  },
+  "mixins": [
+    "nomobfarm.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

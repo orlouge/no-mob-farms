@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fabricmc.nomobfarm.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "io.github.orlouge.nomobfarm.mixin.SpawnHelperMixin",
+    "io.github.orlouge.nomobfarm.mixin.ChunkMixin",
+    "io.github.orlouge.nomobfarm.mixin.LivingEntityMixin",
+    "io.github.orlouge.nomobfarm.mixin.ServerWorldMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
