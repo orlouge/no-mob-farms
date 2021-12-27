@@ -1,6 +1,6 @@
 package io.github.orlouge.nomobfarm.mixin;
 
-import io.github.orlouge.nomobfarm.MobDeathScoreTracker;
+import io.github.orlouge.nomobfarm.TrackedMobOrigin;
 import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,6 +12,6 @@ public class ServerWorldMixin {
     @Inject(method = "tickChunk(Lnet/minecraft/world/chunk/WorldChunk;I)V",
             at = @At("HEAD"))
     private void tickMobDeathScore(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci) {
-        ((MobDeathScoreTracker) chunk).tickMobDeathScore();
+        ((TrackedMobOrigin) chunk).getMobDeathScoreAlgorithm().tick();
     }
 }

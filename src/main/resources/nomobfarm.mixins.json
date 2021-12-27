@@ -1,13 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.nomobfarm.mixin",
+  "package": "io.github.orlouge.nomobfarm.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "io.github.orlouge.nomobfarm.mixin.SpawnHelperMixin",
-    "io.github.orlouge.nomobfarm.mixin.ChunkMixin",
-    "io.github.orlouge.nomobfarm.mixin.LivingEntityMixin",
-    "io.github.orlouge.nomobfarm.mixin.ServerWorldMixin"
+    "SpawnHelperMixin",
+    "ChunkMixin",
+    "ChunkSerializerMixin",
+    "LivingEntityMixin",
+    "ServerWorldMixin",
+    "MobSpawnerLogicMixin"
   ],
   "server": [
   ],

@@ -1,33 +1,28 @@
 package io.github.orlouge.nomobfarm.mixin;
 
-import io.github.orlouge.nomobfarm.MobDeathScoreTracker;
-import org.spongepowered.asm.mixin.Mixin;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import io.github.orlouge.nomobfarm.BasicMobDeathScoreAlgorithm;
+import io.github.orlouge.nomobfarm.MobDeathScoreAlgorithm;
+import io.github.orlouge.nomobfarm.TrackedMobOrigin;
 import io.github.orlouge.nomobfarm.NoMobFarmMod;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(net.minecraft.world.chunk.Chunk.class)
-public class ChunkMixin implements MobDeathScoreTracker {
+public abstract class ChunkMixin implements TrackedMobOrigin, BasicMobDeathScoreAlgorithm.BasicMobDeathScoreAlgorithmNotify {
+    @Shadow public abstract void setShouldSave(boolean shouldSave);
 
-    private float mobDeathCount = 0;
-    private int ticksUntilNextSpawn = 0;
-
+    protected MobDeathScoreAlgorithm deathScore = new BasicMobDeathScoreAlgorithm(NoMobFarmMod.NATURAL_SLOWDOWN_RATE,
+                                                                                  NoMobFarmMod.NATURAL_MAX_WAIT,
+                                                                                  NoMobFarmMod.NATURAL_RECOVERY_RATE,
+                                                                                  NoMobFarmMod.NATURAL_MIN_DEATHS,
+                                                                          this);
     @Override
-    public void increaseMobDeathScore() {
-        mobDeathCount = Float.min(100, mobDeathCount + 1);
-        ticksUntilNextSpawn += NoMobFarmMod.SLOWDOWN_RATE * (int) mobDeathCount;
-        ticksUntilNextSpawn = Integer.min(NoMobFarmMod.MAX_WAIT, ticksUntilNextSpawn);
-        NoMobFarmMod.LOGGER.info(Float.toString(mobDeathCount) + "," + Integer.toString(ticksUntilNextSpawn));
+    public MobDeathScoreAlgorithm getMobDeathScoreAlgorithm() {
+        return deathScore;
     }
 
     @Override
-    public void tickMobDeathScore() {
-        ticksUntilNextSpawn = Integer.max(0, ticksUntilNextSpawn - 1);
-        mobDeathCount = Float.max(0, mobDeathCount - NoMobFarmMod.RECOVERY_RATE);
-    }
-
-    @Override
-    public boolean acceptableMobDeathScore() {
-        return ticksUntilNextSpawn < 10;
+    public void notifyLargeScoreChange() {
+        this.setShouldSave(true);
     }
 }
