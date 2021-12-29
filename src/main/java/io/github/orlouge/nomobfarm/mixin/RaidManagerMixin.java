@@ -64,8 +64,11 @@ public class RaidManagerMixin {
 
     private int randomizeCenterCoord(ServerWorld world) {
         int extent = NoMobFarmMod.RAID_CENTER_MAX_RANDOMIZATION -
-                     NoMobFarmMod.RAID_CENTER_MIN_RANDOMIZATION,
-            offset2 = world.random.nextInt(2 * extent),
+                     NoMobFarmMod.RAID_CENTER_MIN_RANDOMIZATION;
+        if (extent < 1) {
+            return 0;
+        }
+        int offset2 = world.random.nextInt(2 * extent),
             offset = offset2 - extent;
         return offset + Integer.signum(offset) * NoMobFarmMod.RAID_CENTER_MIN_RANDOMIZATION;
 
