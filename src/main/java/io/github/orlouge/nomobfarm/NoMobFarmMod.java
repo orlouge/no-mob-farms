@@ -21,6 +21,12 @@ public class NoMobFarmMod implements ModInitializer {
 	public static int SPAWNER_MAX_WAIT = 10000;
 	public static int SPAWNER_MIN_DEATHS = 15;
 
+	public static int RAID_MIN_SIZE = 512;
+	public static int RAID_CENTER_MIN_RANDOMIZATION = 10;
+	public static int RAID_CENTER_MAX_RANDOMIZATION = 20;
+
+	public static long GOLEM_DETECTION_MEMORY = 10000;
+
 	@Override
 	public void onInitialize() {
 		Properties defaultProps = new Properties();
@@ -33,6 +39,10 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("spawner_recovery_rate", Float.toString(SPAWNER_RECOVERY_RATE));
 		defaultProps.setProperty("spawner_max_wait", Integer.toString(SPAWNER_MAX_WAIT));
 		defaultProps.setProperty("spawner_min_deaths", Integer.toString(SPAWNER_MIN_DEATHS));
+		defaultProps.setProperty("raid_min_size", Integer.toString(RAID_MIN_SIZE));
+		defaultProps.setProperty("raid_center_min_randomization", Integer.toString(RAID_CENTER_MIN_RANDOMIZATION));
+		defaultProps.setProperty("raid_center_max_randomization", Integer.toString(RAID_CENTER_MAX_RANDOMIZATION));
+		defaultProps.setProperty("golem_detection_memory", Long.toString(GOLEM_DETECTION_MEMORY));
 
 		File f = new File(CONFIG_FNAME);
 		if (f.isFile() && f.canRead()) {
@@ -47,6 +57,10 @@ public class NoMobFarmMod implements ModInitializer {
 				SPAWNER_RECOVERY_RATE = Float.parseFloat(props.getProperty("spawner_recovery_rate"));
 				SPAWNER_MAX_WAIT = Integer.parseInt(props.getProperty("spawner_max_wait"));
 				SPAWNER_MIN_DEATHS = Integer.parseInt(props.getProperty("spawner_min_deaths"));
+				RAID_MIN_SIZE = Integer.parseInt(props.getProperty("raid_min_size"));
+				RAID_CENTER_MIN_RANDOMIZATION = Integer.parseInt(props.getProperty("raid_center_min_randomization"));
+				RAID_CENTER_MAX_RANDOMIZATION = Integer.parseInt(props.getProperty("raid_center_max_randomization"));
+				GOLEM_DETECTION_MEMORY = Long.parseLong(props.getProperty("golem_detection_memory"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

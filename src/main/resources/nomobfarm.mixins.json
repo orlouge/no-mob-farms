@@ -9,7 +9,9 @@
     "ChunkSerializerMixin",
     "LivingEntityMixin",
     "ServerWorldMixin",
-    "MobSpawnerLogicMixin"
+    "MobSpawnerLogicMixin",
+    "RaidManagerMixin",
+    "GolemLastSeenSensorMixin"
   ],
   "server": [
   ],
