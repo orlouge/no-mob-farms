@@ -55,10 +55,10 @@ public class RaidManagerMixin {
                at = @At(value = "INVOKE", target = "Lnet/minecraft/village/raid/RaidManager;getOrCreateRaid(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/village/raid/Raid;"),
                index = 1)
     public BlockPos modifyRaidCenter(ServerWorld world, BlockPos pos) {
-        return new BlockPos(
-            pos.getX() + randomizeCenterCoord(world),
-            pos.getY() + randomizeCenterCoord(world),
-            pos.getZ() + randomizeCenterCoord(world)
+        return pos.add(
+                randomizeCenterCoord(world),
+                randomizeCenterCoord(world),
+                randomizeCenterCoord(world)
         );
     }
 

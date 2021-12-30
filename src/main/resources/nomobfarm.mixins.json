@@ -11,7 +11,8 @@
     "ServerWorldMixin",
     "MobSpawnerLogicMixin",
     "RaidManagerMixin",
-    "GolemLastSeenSensorMixin"
+    "GolemLastSeenSensorMixin",
+    "RaiderEntityMixin"
   ],
   "server": [
   ],

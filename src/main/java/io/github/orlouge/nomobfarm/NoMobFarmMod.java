@@ -22,8 +22,9 @@ public class NoMobFarmMod implements ModInitializer {
 	public static int SPAWNER_MIN_DEATHS = 15;
 
 	public static int RAID_MIN_SIZE = 512;
-	public static int RAID_CENTER_MIN_RANDOMIZATION = 10;
-	public static int RAID_CENTER_MAX_RANDOMIZATION = 20;
+	public static int RAID_CENTER_MIN_RANDOMIZATION = 16;
+	public static int RAID_CENTER_MAX_RANDOMIZATION = 24;
+	public static boolean RAID_NO_BAD_OMEN_LOOP = true;
 
 	public static long GOLEM_DETECTION_MEMORY = 10000;
 
@@ -42,6 +43,7 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("raid_min_size", Integer.toString(RAID_MIN_SIZE));
 		defaultProps.setProperty("raid_center_min_randomization", Integer.toString(RAID_CENTER_MIN_RANDOMIZATION));
 		defaultProps.setProperty("raid_center_max_randomization", Integer.toString(RAID_CENTER_MAX_RANDOMIZATION));
+		defaultProps.setProperty("raid_no_bad_omen_loop", Boolean.toString(RAID_NO_BAD_OMEN_LOOP));
 		defaultProps.setProperty("golem_detection_memory", Long.toString(GOLEM_DETECTION_MEMORY));
 
 		File f = new File(CONFIG_FNAME);
@@ -60,6 +62,7 @@ public class NoMobFarmMod implements ModInitializer {
 				RAID_MIN_SIZE = Integer.parseInt(props.getProperty("raid_min_size"));
 				RAID_CENTER_MIN_RANDOMIZATION = Integer.parseInt(props.getProperty("raid_center_min_randomization"));
 				RAID_CENTER_MAX_RANDOMIZATION = Integer.parseInt(props.getProperty("raid_center_max_randomization"));
+				RAID_NO_BAD_OMEN_LOOP = Boolean.parseBoolean(props.getProperty("raid_no_bad_omen_loop"));
 				GOLEM_DETECTION_MEMORY = Long.parseLong(props.getProperty("golem_detection_memory"));
 			} catch (IOException e) {
 				e.printStackTrace();
