@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(net.minecraft.entity.raid.RaiderEntity.class)
 public abstract class RaiderEntityMixin {
-    @Shadow @Nullable public abstract Raid getRaid();
-
     private boolean wasRaider = false;
 
     @ModifyVariable(method = "onDeath(Lnet/minecraft/entity/damage/DamageSource;)V",
