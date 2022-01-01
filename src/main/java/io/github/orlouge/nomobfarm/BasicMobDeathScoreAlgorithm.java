@@ -3,6 +3,8 @@ package io.github.orlouge.nomobfarm;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 
+import java.util.Date;
+
 public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
     private final int slowdownRate;
     private final int maxWait;
@@ -13,17 +15,19 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
     private int ticksUntilNextSpawn = 0;
     private int lastTicksUntilNextSpawn = 0;
     private boolean running = false;
+    private long offlinePersistence = 3 * 24 * 60 * 60;
 
-    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, BasicMobDeathScoreAlgorithmNotify notified) {
+    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, long offlinePersistence, BasicMobDeathScoreAlgorithmNotify notified) {
         this.slowdownRate = slowdownRate;
         this.maxWait = maxWait;
         this.recoveryRate = recoveryRate;
         this.minDeaths = (float) minDeaths;
         this.notified = notified;
+        this.offlinePersistence = offlinePersistence;
     }
 
-    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths) {
-        this(slowdownRate, maxWait, recoveryRate, minDeaths,null);
+    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, long offlinePersistence) {
+        this(slowdownRate, maxWait, recoveryRate, minDeaths, offlinePersistence, null);
     }
 
     @Override
@@ -63,6 +67,11 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
     public void readNbt(NbtCompound nbtCompound) {
         if (nbtCompound.contains("NoMobFarmsData")) {
             NbtCompound data = nbtCompound.getCompound("NoMobFarmsData");
+            if (data.contains("whenWritten")) {
+                if (new Date(data.getLong("whenWritten") + offlinePersistence * 1000).before(new Date())) {
+                    return;
+                }
+            }
             if (data.contains("ticksUntilNextSpawn")) {
                 ticksUntilNextSpawn = data.getInt("ticksUntilNextSpawn");
                 lastTicksUntilNextSpawn = ticksUntilNextSpawn;
@@ -85,6 +94,7 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
 
         data.putInt("ticksUntilNextSpawn", ticksUntilNextSpawn);
         data.putFloat("mobDeathCount", mobDeathCount);
+        data.putLong("whenWritten", (new Date()).getTime());
 
         if (!nbtCompound.contains("NoMobFarmsData")) {
             nbtCompound.put("NoMobFarmsData", (NbtElement) data);

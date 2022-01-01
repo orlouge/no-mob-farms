@@ -19,6 +19,7 @@ public class MobSpawnerLogicMixin implements TrackedMobOrigin, BasicMobDeathScor
                                                                                   NoMobFarmMod.SPAWNER_MAX_WAIT,
                                                                                   NoMobFarmMod.SPAWNER_RECOVERY_RATE,
                                                                                   NoMobFarmMod.SPAWNER_MIN_DEATHS,
+                                                                                  NoMobFarmMod.SPAWNER_OFFLINE_PERSISTENCE,
                                                                                   this);
 
     @Override

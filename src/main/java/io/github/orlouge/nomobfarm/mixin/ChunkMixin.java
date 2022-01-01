@@ -15,6 +15,7 @@ public abstract class ChunkMixin implements TrackedMobOrigin, BasicMobDeathScore
                                                                                   NoMobFarmMod.NATURAL_MAX_WAIT,
                                                                                   NoMobFarmMod.NATURAL_RECOVERY_RATE,
                                                                                   NoMobFarmMod.NATURAL_MIN_DEATHS,
+                                                                                  NoMobFarmMod.NATURAL_OFFLINE_PERSISTENCE,
                                                                           this);
     @Override
     public MobDeathScoreAlgorithm getMobDeathScoreAlgorithm() {

@@ -32,7 +32,7 @@ public class SpawnHelperMixin {
 			ordinal = 0,
 			method = "spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V"
 	)
-	private static MobEntity setBirthChunk(MobEntity entity, SpawnGroup group, ServerWorld world, Chunk chunk) {
+	private static MobEntity setOrigin(MobEntity entity, SpawnGroup group, ServerWorld world, Chunk chunk) {
 		if (entity != null && entity instanceof HasTrackedOrigin) {
 			((HasTrackedOrigin) entity).setOrigin((TrackedMobOrigin) chunk);
 		}
