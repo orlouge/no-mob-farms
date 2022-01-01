@@ -35,6 +35,7 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
         mobDeathCount = Float.min(1000000, mobDeathCount + 1);
         if (!running && mobDeathCount >= minDeaths) {
             running = true;
+            notified.notifyLargeScoreChange();
         }
         if (running) {
             ticksUntilNextSpawn += slowdownRate * (int) Float.min(100, mobDeathCount);
@@ -69,6 +70,9 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
             NbtCompound data = nbtCompound.getCompound("NoMobFarmsData");
             if (data.contains("whenWritten")) {
                 if (new Date(data.getLong("whenWritten") + offlinePersistence * 1000).before(new Date())) {
+                    if (ticksUntilNextSpawn >= 1000 || mobDeathCount >= 1) {
+                        notified.notifyLargeScoreChange();
+                    }
                     return;
                 }
             }
