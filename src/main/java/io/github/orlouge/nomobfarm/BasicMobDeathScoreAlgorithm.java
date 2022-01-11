@@ -10,24 +10,27 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
     private final int maxWait;
     private final float recoveryRate;
     private final float minDeaths;
-    private BasicMobDeathScoreAlgorithmNotify notified;
+    private final float maxDeaths;
+    private final long offlinePersistence;
+    private final BasicMobDeathScoreAlgorithmNotify notified;
+
     private float mobDeathCount = 0;
     private int ticksUntilNextSpawn = 0;
     private int lastTicksUntilNextSpawn = 0;
     private boolean running = false;
-    private long offlinePersistence = 3 * 24 * 60 * 60;
 
-    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, long offlinePersistence, BasicMobDeathScoreAlgorithmNotify notified) {
+    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, int maxDeaths, long offlinePersistence, BasicMobDeathScoreAlgorithmNotify notified) {
         this.slowdownRate = slowdownRate;
         this.maxWait = maxWait;
         this.recoveryRate = recoveryRate;
         this.minDeaths = (float) minDeaths;
+        this.maxDeaths = (float) maxDeaths;
         this.notified = notified;
         this.offlinePersistence = offlinePersistence;
     }
 
-    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, long offlinePersistence) {
-        this(slowdownRate, maxWait, recoveryRate, minDeaths, offlinePersistence, null);
+    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, int maxDeaths, long offlinePersistence) {
+        this(slowdownRate, maxWait, recoveryRate, minDeaths, maxDeaths, offlinePersistence, null);
     }
 
     @Override
@@ -46,7 +49,7 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
 
     @Override
     public void tick() {
-        if (!running) {
+        if (!running || (maxDeaths > 0 && mobDeathCount >= maxDeaths)) {
             return;
         }
 
