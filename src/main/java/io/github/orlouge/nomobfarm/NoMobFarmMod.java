@@ -43,6 +43,7 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("natural_min_deaths", Integer.toString(NATURAL_MIN_DEATHS));
 		defaultProps.setProperty("natural_max_deaths", Integer.toString(NATURAL_MAX_DEATHS));
 		defaultProps.setProperty("natural_offline_persistence", Integer.toString(NATURAL_OFFLINE_PERSISTENCE));
+		defaultProps.setProperty("spawner_slowdown_rate", Integer.toString(SPAWNER_SLOWDOWN_NEAR_RATE));
 		defaultProps.setProperty("spawner_slowdown_near_rate", Integer.toString(SPAWNER_SLOWDOWN_NEAR_RATE));
 		defaultProps.setProperty("spawner_slowdown_far_rate", Integer.toString(SPAWNER_SLOWDOWN_FAR_RATE));
 		defaultProps.setProperty("spawner_recovery_rate", Float.toString(SPAWNER_RECOVERY_RATE));
