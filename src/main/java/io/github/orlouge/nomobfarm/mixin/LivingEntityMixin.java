@@ -2,12 +2,13 @@ package io.github.orlouge.nomobfarm.mixin;
 
 import io.github.orlouge.nomobfarm.HasTrackedOrigin;
 import io.github.orlouge.nomobfarm.TrackedMobOrigin;
+import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(net.minecraft.entity.LivingEntity.class)
+@Mixin(LivingEntity.class)
 public class LivingEntityMixin implements HasTrackedOrigin {
     @Override
     public void setOrigin(TrackedMobOrigin origin) {
@@ -22,7 +23,7 @@ public class LivingEntityMixin implements HasTrackedOrigin {
     )
     protected void onDeathCalled(CallbackInfo callbackInfo) {
         if (origin != null) {
-            origin.getMobDeathScoreAlgorithm().signalDeath();
+            origin.getMobDeathScoreAlgorithm().signalDeath((LivingEntity) (Object) this);
         }
     }
 }

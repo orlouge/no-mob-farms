@@ -18,7 +18,8 @@ public class NoMobFarmMod implements ModInitializer {
 	public static int NATURAL_MAX_DEATHS = -1;
 	public static int NATURAL_OFFLINE_PERSISTENCE = 3 * 24 * 60 * 60;
 
-	public static int SPAWNER_SLOWDOWN_RATE = 30;
+	public static int SPAWNER_SLOWDOWN_NEAR_RATE = 20;
+	public static int SPAWNER_SLOWDOWN_FAR_RATE = 100;
 	public static float SPAWNER_RECOVERY_RATE = 0.001f;
 	public static int SPAWNER_MAX_WAIT = 10000;
 	public static int SPAWNER_MIN_DEATHS = 15;
@@ -42,7 +43,8 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("natural_min_deaths", Integer.toString(NATURAL_MIN_DEATHS));
 		defaultProps.setProperty("natural_max_deaths", Integer.toString(NATURAL_MAX_DEATHS));
 		defaultProps.setProperty("natural_offline_persistence", Integer.toString(NATURAL_OFFLINE_PERSISTENCE));
-		defaultProps.setProperty("spawner_slowdown_rate", Integer.toString(SPAWNER_SLOWDOWN_RATE));
+		defaultProps.setProperty("spawner_slowdown_near_rate", Integer.toString(SPAWNER_SLOWDOWN_NEAR_RATE));
+		defaultProps.setProperty("spawner_slowdown_far_rate", Integer.toString(SPAWNER_SLOWDOWN_FAR_RATE));
 		defaultProps.setProperty("spawner_recovery_rate", Float.toString(SPAWNER_RECOVERY_RATE));
 		defaultProps.setProperty("spawner_max_wait", Integer.toString(SPAWNER_MAX_WAIT));
 		defaultProps.setProperty("spawner_min_deaths", Integer.toString(SPAWNER_MIN_DEATHS));
@@ -65,7 +67,9 @@ public class NoMobFarmMod implements ModInitializer {
 				NATURAL_MIN_DEATHS = Integer.parseInt(props.getProperty("natural_min_deaths"));
 				NATURAL_MAX_DEATHS = Integer.parseInt(props.getProperty("natural_max_deaths"));
 				NATURAL_OFFLINE_PERSISTENCE = Integer.parseInt(props.getProperty("natural_offline_persistence"));
-				SPAWNER_SLOWDOWN_RATE = Integer.parseInt(props.getProperty("spawner_slowdown_rate"));
+				SPAWNER_SLOWDOWN_NEAR_RATE = Integer.parseInt(props.getProperty("spawner_slowdown_rate"));
+				SPAWNER_SLOWDOWN_NEAR_RATE = Integer.parseInt(props.getProperty("spawner_slowdown_near_rate"));
+				SPAWNER_SLOWDOWN_FAR_RATE = Integer.parseInt(props.getProperty("spawner_slowdown_far_rate"));
 				SPAWNER_RECOVERY_RATE = Float.parseFloat(props.getProperty("spawner_recovery_rate"));
 				SPAWNER_MAX_WAIT = Integer.parseInt(props.getProperty("spawner_max_wait"));
 				SPAWNER_MIN_DEATHS = Integer.parseInt(props.getProperty("spawner_min_deaths"));

@@ -1,12 +1,14 @@
 package io.github.orlouge.nomobfarm;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 
 import java.util.Date;
+import java.util.function.Function;
 
 public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
-    private final int slowdownRate;
+    private final Function<LivingEntity, Integer> slowdownFunction;
     private final int maxWait;
     private final float recoveryRate;
     private final float minDeaths;
@@ -19,8 +21,8 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
     private int lastTicksUntilNextSpawn = 0;
     private boolean running = false;
 
-    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, int maxDeaths, long offlinePersistence, BasicMobDeathScoreAlgorithmNotify notified) {
-        this.slowdownRate = slowdownRate;
+    public BasicMobDeathScoreAlgorithm(Function<LivingEntity, Integer> slowdownFunction, int maxWait, float recoveryRate, int minDeaths, int maxDeaths, long offlinePersistence, BasicMobDeathScoreAlgorithmNotify notified) {
+        this.slowdownFunction = slowdownFunction;
         this.maxWait = maxWait;
         this.recoveryRate = recoveryRate;
         this.minDeaths = (float) minDeaths;
@@ -29,19 +31,23 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
         this.offlinePersistence = offlinePersistence;
     }
 
+    public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, int maxDeaths, long offlinePersistence, BasicMobDeathScoreAlgorithmNotify notified) {
+        this((e) -> slowdownRate, maxWait, recoveryRate, minDeaths, maxDeaths, offlinePersistence, notified);
+    }
+
     public BasicMobDeathScoreAlgorithm(int slowdownRate, int maxWait, float recoveryRate, int minDeaths, int maxDeaths, long offlinePersistence) {
         this(slowdownRate, maxWait, recoveryRate, minDeaths, maxDeaths, offlinePersistence, null);
     }
 
     @Override
-    public void signalDeath() {
+    public void signalDeath(LivingEntity entity) {
         mobDeathCount = Float.min(1000000, mobDeathCount + 1);
         if (!running && mobDeathCount >= minDeaths) {
             running = true;
             notified.notifyLargeScoreChange();
         }
         if (running) {
-            ticksUntilNextSpawn += slowdownRate * (int) Float.min(100, mobDeathCount);
+            ticksUntilNextSpawn += slowdownFunction.apply(entity) * (int) Float.min(100, mobDeathCount);
             ticksUntilNextSpawn = Integer.min(maxWait, ticksUntilNextSpawn);
         }
         NoMobFarmMod.LOGGER.info(Float.toString(mobDeathCount) + "," + Integer.toString(ticksUntilNextSpawn));
