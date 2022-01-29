@@ -33,6 +33,9 @@ public class NoMobFarmMod implements ModInitializer {
 
 	public static long GOLEM_DETECTION_MEMORY = 10000;
 
+	public static double REINFORCEMENT_PENALTY = 0.49;
+	public static boolean REINFORCEMENT_PENALTY_CONVERSION = true;
+
 	@Override
 	public void onInitialize() {
 		Properties defaultProps = new Properties();
@@ -56,6 +59,8 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("raid_center_max_randomization", Integer.toString(RAID_CENTER_MAX_RANDOMIZATION));
 		defaultProps.setProperty("raid_no_bad_omen_loop", Boolean.toString(RAID_NO_BAD_OMEN_LOOP));
 		defaultProps.setProperty("golem_detection_memory", Long.toString(GOLEM_DETECTION_MEMORY));
+		defaultProps.setProperty("reinforcement_penalty", Double.toString(REINFORCEMENT_PENALTY));
+		defaultProps.setProperty("reinforcement_penalty_conversion", Boolean.toString(REINFORCEMENT_PENALTY_CONVERSION));
 
 		File f = new File(CONFIG_FNAME);
 		if (f.isFile() && f.canRead()) {
@@ -81,6 +86,8 @@ public class NoMobFarmMod implements ModInitializer {
 				RAID_CENTER_MAX_RANDOMIZATION = Integer.parseInt(props.getProperty("raid_center_max_randomization"));
 				RAID_NO_BAD_OMEN_LOOP = Boolean.parseBoolean(props.getProperty("raid_no_bad_omen_loop"));
 				GOLEM_DETECTION_MEMORY = Long.parseLong(props.getProperty("golem_detection_memory"));
+				REINFORCEMENT_PENALTY = Double.parseDouble(props.getProperty("reinforcement_penalty"));
+				REINFORCEMENT_PENALTY_CONVERSION = Boolean.parseBoolean(props.getProperty("reinforcement_penalty_conversion"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -11,6 +11,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin implements HasTrackedOrigin {
     @Override
+    public TrackedMobOrigin getOrigin() {
+        return origin;
+    }
+
+    @Override
     public void setOrigin(TrackedMobOrigin origin) {
         this.origin = origin;
     }

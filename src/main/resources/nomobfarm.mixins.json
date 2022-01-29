@@ -12,7 +12,9 @@
     "MobSpawnerLogicMixin",
     "RaidManagerMixin",
     "GolemLastSeenSensorMixin",
-    "RaiderEntityMixin"
+    "RaiderEntityMixin",
+    "ZombieEntityMixin",
+    "MobEntityMixin"
   ],
   "server": [
   ],
