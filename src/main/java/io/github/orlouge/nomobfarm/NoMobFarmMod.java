@@ -33,8 +33,10 @@ public class NoMobFarmMod implements ModInitializer {
 
 	public static long GOLEM_DETECTION_MEMORY = 10000;
 
-	public static double REINFORCEMENT_PENALTY = 0.49;
+	public static double REINFORCEMENT_PENALTY = 0.049;
 	public static boolean REINFORCEMENT_PENALTY_CONVERSION = true;
+
+	public static boolean FARMER_INSTANT_PICKUP = true;
 
 	@Override
 	public void onInitialize() {
@@ -61,6 +63,7 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("golem_detection_memory", Long.toString(GOLEM_DETECTION_MEMORY));
 		defaultProps.setProperty("reinforcement_penalty", Double.toString(REINFORCEMENT_PENALTY));
 		defaultProps.setProperty("reinforcement_penalty_conversion", Boolean.toString(REINFORCEMENT_PENALTY_CONVERSION));
+		defaultProps.setProperty("farmer_instant_pickup", Boolean.toString(FARMER_INSTANT_PICKUP));
 
 		File f = new File(CONFIG_FNAME);
 		if (f.isFile() && f.canRead()) {
@@ -88,6 +91,7 @@ public class NoMobFarmMod implements ModInitializer {
 				GOLEM_DETECTION_MEMORY = Long.parseLong(props.getProperty("golem_detection_memory"));
 				REINFORCEMENT_PENALTY = Double.parseDouble(props.getProperty("reinforcement_penalty"));
 				REINFORCEMENT_PENALTY_CONVERSION = Boolean.parseBoolean(props.getProperty("reinforcement_penalty_conversion"));
+				FARMER_INSTANT_PICKUP = Boolean.parseBoolean(props.getProperty("farmer_instant_pickup"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

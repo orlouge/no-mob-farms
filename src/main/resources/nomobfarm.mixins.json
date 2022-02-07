@@ -14,7 +14,8 @@
     "GolemLastSeenSensorMixin",
     "RaiderEntityMixin",
     "ZombieEntityMixin",
-    "MobEntityMixin"
+    "MobEntityMixin",
+    "FarmerVillagerTaskMixin"
   ],
   "server": [
   ],
