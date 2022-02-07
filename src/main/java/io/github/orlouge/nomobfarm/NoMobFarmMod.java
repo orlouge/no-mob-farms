@@ -37,6 +37,13 @@ public class NoMobFarmMod implements ModInitializer {
 	public static boolean REINFORCEMENT_PENALTY_CONVERSION = true;
 
 	public static boolean FARMER_INSTANT_PICKUP = true;
+	public static boolean PISTON_MOVES_GOURD = false;
+	public static boolean GOURD_DROP_REQUIRES_PLAYER = false;
+	public static boolean SUGAR_CANE_DROP_REQUIRES_PLAYER = false;
+	public static boolean CACTUS_DROP_REQUIRES_PLAYER = false;
+	public static boolean BAMBOO_DROP_REQUIRES_PLAYER = false;
+
+	public static int allowedCropDrops = 0;
 
 	@Override
 	public void onInitialize() {
@@ -64,6 +71,11 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("reinforcement_penalty", Double.toString(REINFORCEMENT_PENALTY));
 		defaultProps.setProperty("reinforcement_penalty_conversion", Boolean.toString(REINFORCEMENT_PENALTY_CONVERSION));
 		defaultProps.setProperty("farmer_instant_pickup", Boolean.toString(FARMER_INSTANT_PICKUP));
+		defaultProps.setProperty("piston_moves_gourd", Boolean.toString(PISTON_MOVES_GOURD));
+		defaultProps.setProperty("gourd_drop_requires_player", Boolean.toString(GOURD_DROP_REQUIRES_PLAYER));
+		defaultProps.setProperty("sugar_cane_drop_requires_player", Boolean.toString(SUGAR_CANE_DROP_REQUIRES_PLAYER));
+		defaultProps.setProperty("cactus_drop_requires_player", Boolean.toString(CACTUS_DROP_REQUIRES_PLAYER));
+		defaultProps.setProperty("bamboo_drop_requires_player", Boolean.toString(BAMBOO_DROP_REQUIRES_PLAYER));
 
 		File f = new File(CONFIG_FNAME);
 		if (f.isFile() && f.canRead()) {
@@ -92,6 +104,11 @@ public class NoMobFarmMod implements ModInitializer {
 				REINFORCEMENT_PENALTY = Double.parseDouble(props.getProperty("reinforcement_penalty"));
 				REINFORCEMENT_PENALTY_CONVERSION = Boolean.parseBoolean(props.getProperty("reinforcement_penalty_conversion"));
 				FARMER_INSTANT_PICKUP = Boolean.parseBoolean(props.getProperty("farmer_instant_pickup"));
+				PISTON_MOVES_GOURD = Boolean.parseBoolean(props.getProperty("piston_moves_gourd"));
+				GOURD_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("gourd_drop_requires_player"));
+				SUGAR_CANE_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("sugar_cane_drop_requires_player"));
+				CACTUS_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("cactus_drop_requires_player"));
+				BAMBOO_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("bamboo_drop_requires_player"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

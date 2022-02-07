@@ -15,7 +15,11 @@
     "RaiderEntityMixin",
     "ZombieEntityMixin",
     "MobEntityMixin",
-    "FarmerVillagerTaskMixin"
+    "FarmerVillagerTaskMixin",
+    "GourdBlockMixin",
+    "SugarCaneBlockMixin",
+    "CactusBlockMixin",
+    "BambooBlockMixin"
   ],
   "server": [
   ],
