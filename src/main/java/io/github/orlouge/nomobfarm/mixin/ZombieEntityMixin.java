@@ -31,8 +31,8 @@ public abstract class ZombieEntityMixin extends HostileEntity {
 
     @Inject(
             method = "convertTo(Lnet/minecraft/entity/EntityType;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/ZombieEntity;setCanBreakDoors(Z)V"),
-            locals = LocalCapture.CAPTURE_FAILSOFT
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/ZombieEntity;applyAttributeModifiers(F)V"),
+            locals = LocalCapture.CAPTURE_FAILHARD
     )
     public void applyPenaltyAfterConversion(EntityType<? extends ZombieEntity> entityType, CallbackInfo ci, ZombieEntity convertedZombie) {
         if (NoMobFarmMod.REINFORCEMENT_PENALTY_CONVERSION) {

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(net.minecraft.world.chunk.Chunk.class)
 public abstract class ChunkMixin implements TrackedMobOrigin, BasicMobDeathScoreAlgorithm.BasicMobDeathScoreAlgorithmNotify {
-    @Shadow public abstract void setShouldSave(boolean shouldSave);
+    @Shadow public abstract void setNeedsSaving(boolean shouldSave);
 
     protected MobDeathScoreAlgorithm deathScore = new BasicMobDeathScoreAlgorithm(NoMobFarmMod.NATURAL_SLOWDOWN_RATE,
                                                                                   NoMobFarmMod.NATURAL_MAX_WAIT,
@@ -25,6 +25,6 @@ public abstract class ChunkMixin implements TrackedMobOrigin, BasicMobDeathScore
 
     @Override
     public void notifyLargeScoreChange() {
-        this.setShouldSave(true);
+        this.setNeedsSaving(true);
     }
 }

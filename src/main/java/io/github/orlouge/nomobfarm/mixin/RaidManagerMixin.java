@@ -12,11 +12,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,9 +22,9 @@ import java.util.List;
 public class RaidManagerMixin {
     @Inject(method = "startRaid(Lnet/minecraft/server/network/ServerPlayerEntity;)Lnet/minecraft/village/raid/Raid;",
             at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"),
-            locals = LocalCapture.CAPTURE_FAILSOFT,
+            locals = LocalCapture.CAPTURE_FAILHARD,
             cancellable = true)
-    public void checkPOIExtent(ServerPlayerEntity player, CallbackInfoReturnable<Raid> cir, BlockPos blockPos, List<PointOfInterest> poiList, int i, Vec3d vec3d) {
+    public void checkPOIExtent(ServerPlayerEntity player, CallbackInfoReturnable<Raid> cir, DimensionType dimensionType, BlockPos blockPos, List<PointOfInterest> poiList, int i, Vec3d vec3d) {
         Iterator iter = poiList.iterator();
 
         if (iter.hasNext()) {
