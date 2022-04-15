@@ -50,7 +50,9 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
             ticksUntilNextSpawn += slowdownFunction.apply(entity) * (int) Float.min(100, mobDeathCount);
             ticksUntilNextSpawn = Integer.min(maxWait, ticksUntilNextSpawn);
         }
-        NoMobFarmMod.LOGGER.info(Float.toString(mobDeathCount) + "," + Integer.toString(ticksUntilNextSpawn));
+        if (NoMobFarmMod.LOGGING) {
+            NoMobFarmMod.LOGGER.info(mobDeathCount + "," + ticksUntilNextSpawn);
+        }
     }
 
     @Override

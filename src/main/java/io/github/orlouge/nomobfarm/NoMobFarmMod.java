@@ -43,6 +43,8 @@ public class NoMobFarmMod implements ModInitializer {
 	public static boolean CACTUS_DROP_REQUIRES_PLAYER = false;
 	public static boolean BAMBOO_DROP_REQUIRES_PLAYER = false;
 
+	public static boolean LOGGING = false;
+
 	public static int allowedCropDrops = 0;
 
 	@Override
@@ -76,6 +78,7 @@ public class NoMobFarmMod implements ModInitializer {
 		defaultProps.setProperty("sugar_cane_drop_requires_player", Boolean.toString(SUGAR_CANE_DROP_REQUIRES_PLAYER));
 		defaultProps.setProperty("cactus_drop_requires_player", Boolean.toString(CACTUS_DROP_REQUIRES_PLAYER));
 		defaultProps.setProperty("bamboo_drop_requires_player", Boolean.toString(BAMBOO_DROP_REQUIRES_PLAYER));
+		defaultProps.setProperty("death_logging", Boolean.toString(LOGGING));
 
 		File f = new File(CONFIG_FNAME);
 		if (f.isFile() && f.canRead()) {
@@ -109,6 +112,7 @@ public class NoMobFarmMod implements ModInitializer {
 				SUGAR_CANE_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("sugar_cane_drop_requires_player"));
 				CACTUS_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("cactus_drop_requires_player"));
 				BAMBOO_DROP_REQUIRES_PLAYER = Boolean.parseBoolean(props.getProperty("bamboo_drop_requires_player"));
+				LOGGING = Boolean.parseBoolean(props.getProperty("death_logging"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
