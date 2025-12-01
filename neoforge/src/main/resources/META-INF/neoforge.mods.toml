@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "nomobfarm"
+version = "${version}"
+displayName = "No Mob Farms"
+authors = "orlouge"
+description = '''
+'''
+#logoFile = ""
+
+[[dependencies.nomobfarm]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.nomobfarm]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "nomobfarm.mixins.json"
