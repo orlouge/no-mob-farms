@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "[9,)"
 #issueTrackerURL = ""
 license = "MIT"
 
@@ -15,14 +15,14 @@ description = '''
 [[dependencies.nomobfarm]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.0,)"
+versionRange = "[21.8,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.nomobfarm]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "[1.21.8,)"
 ordering = "NONE"
 side = "BOTH"
 

@@ -76,44 +76,38 @@ public class BasicMobDeathScoreAlgorithm extends MobDeathScoreAlgorithm {
     }
 
     @Override
-    public void readNbt(NbtCompound nbtCompound) {
-        if (nbtCompound.contains("NoMobFarmsData")) {
-            NbtCompound data = nbtCompound.getCompound("NoMobFarmsData");
-            if (data.contains("whenWritten")) {
-                if (new Date(data.getLong("whenWritten") + offlinePersistence * 1000).before(new Date())) {
-                    if (ticksUntilNextSpawn >= 1000 || mobDeathCount >= 1) {
-                        notified.notifyLargeScoreChange();
-                    }
-                    return;
+    public void readNbt(NbtCompound data) {
+        if (data.contains("whenWritten")) {
+            if (new Date(data.getLong("whenWritten").orElse(0L) + offlinePersistence * 1000).before(new Date())) {
+                if (ticksUntilNextSpawn >= 1000 || mobDeathCount >= 1) {
+                    notified.notifyLargeScoreChange();
                 }
-            }
-            if (data.contains("ticksUntilNextSpawn")) {
-                ticksUntilNextSpawn = data.getInt("ticksUntilNextSpawn");
-                lastTicksUntilNextSpawn = ticksUntilNextSpawn;
-            }
-            if (data.contains("mobDeathCount")) {
-                mobDeathCount = data.getFloat("mobDeathCount");
-
-                if (mobDeathCount > 0 || lastTicksUntilNextSpawn > 0) {
-                    running = true;
-                }
+                return;
             }
         }
-        //NoMobFarmMod.LOGGER.info("read: " + Float.toString(mobDeathCount) + "," + Integer.toString(ticksUntilNextSpawn));
+        if (data.contains("ticksUntilNextSpawn")) {
+            ticksUntilNextSpawn = data.getInt("ticksUntilNextSpawn").orElse(0);
+            lastTicksUntilNextSpawn = ticksUntilNextSpawn;
+        }
+        if (data.contains("mobDeathCount")) {
+            mobDeathCount = data.getFloat("mobDeathCount").orElse(0f);
+
+            if (mobDeathCount > 0 || lastTicksUntilNextSpawn > 0) {
+                running = true;
+            }
+        }
     }
 
     @Override
-    public void writeNbt(NbtCompound nbtCompound) {
+    public NbtCompound toNbt() {
         //NoMobFarmMod.LOGGER.info("write: " + Float.toString(mobDeathCount) + "," + Integer.toString(ticksUntilNextSpawn));
-        NbtCompound data = nbtCompound.getCompound("NoMobFarmsData");
+        NbtCompound data = new NbtCompound();
 
         data.putInt("ticksUntilNextSpawn", ticksUntilNextSpawn);
         data.putFloat("mobDeathCount", mobDeathCount);
         data.putLong("whenWritten", (new Date()).getTime());
 
-        if (!nbtCompound.contains("NoMobFarmsData")) {
-            nbtCompound.put("NoMobFarmsData", (NbtElement) data);
-        }
+        return data;
     }
 
     public interface BasicMobDeathScoreAlgorithmNotify {

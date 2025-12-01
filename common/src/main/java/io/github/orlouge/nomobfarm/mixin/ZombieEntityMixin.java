@@ -23,7 +23,7 @@ public abstract class ZombieEntityMixin extends HostileEntity {
     }
 
     @ModifyArg(
-            method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z",
+            method = "damage",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeModifier;<init>(Lnet/minecraft/util/Identifier;DLnet/minecraft/entity/attribute/EntityAttributeModifier$Operation;)V"),
             index = 1
     )
@@ -32,23 +32,11 @@ public abstract class ZombieEntityMixin extends HostileEntity {
     }
 
     @ModifyArg(
-        method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z",
+        method = "damage",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeInstance;addPersistentModifier(Lnet/minecraft/entity/attribute/EntityAttributeModifier;)V", ordinal = 1)
     )
 
     public EntityAttributeModifier modifyCalleeReinforcementCharge(EntityAttributeModifier modifier) {
         return new EntityAttributeModifier(Identifier.ofVanilla("reinforcement_callee_charge"), -0.05 - NoMobFarmMod.REINFORCEMENT_PENALTY, EntityAttributeModifier.Operation.ADD_VALUE);
-    }
-
-    @Inject(
-        method = "convertTo(Lnet/minecraft/entity/EntityType;)V",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/ZombieEntity;applyAttributeModifiers(F)V")
-    )
-    public void applyPenaltyAfterConversion(EntityType<? extends ZombieEntity> entityType, CallbackInfo ci, @Local(ordinal = 1) ZombieEntity convertedZombie) {
-        if (NoMobFarmMod.REINFORCEMENT_PENALTY_CONVERSION) {
-            convertedZombie.getAttributeInstance(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS).setFrom(
-                    this.getAttributeInstance(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
-            );
-        }
     }
 }

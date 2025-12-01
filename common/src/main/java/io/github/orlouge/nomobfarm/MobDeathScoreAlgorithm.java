@@ -9,5 +9,5 @@ public abstract class MobDeathScoreAlgorithm {
     public abstract boolean acceptableScore();
 
     public abstract void readNbt(NbtCompound nbtCompound);
-    public abstract void writeNbt(NbtCompound nbtCompound);
+    public abstract NbtCompound toNbt();
 }

@@ -5,6 +5,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
@@ -71,16 +73,16 @@ public class MobSpawnerLogicMixin implements TrackedMobOrigin, BasicMobDeathScor
         return entity;
     }
 
-    @Inject(method = "readNbt(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/nbt/NbtCompound;)V",
+    @Inject(method = "readData",
             at = @At("HEAD"))
-    public void onReadNbt(World world, BlockPos pos, NbtCompound nbt, CallbackInfo ci) {
-        deathScore.readNbt(nbt);
+    public void onReadNbt(World world, BlockPos pos, ReadView view, CallbackInfo ci) {
+        view.read("NoMobFarmsData", NbtCompound.CODEC).ifPresent(nbt -> deathScore.readNbt(nbt));
     }
 
-    @Inject(method = "writeNbt(Lnet/minecraft/nbt/NbtCompound;)Lnet/minecraft/nbt/NbtCompound;",
+    @Inject(method = "writeData",
             at = @At("HEAD"))
-    public void onWriteNbt(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir) {
-        deathScore.writeNbt(nbt);
+    public void onWriteNbt(WriteView view, CallbackInfo ci) {
+        view.put("NoMobFarmsData", NbtCompound.CODEC, deathScore.toNbt());
     }
 
     @Override
